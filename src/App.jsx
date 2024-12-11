@@ -14,11 +14,13 @@ import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 import Bookings from "./pages/Bookings";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000,
+      // staleTime: 60 * 1000,
+      staleTime: 0,
     },
   },
 });
@@ -27,6 +29,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
+      <Toaster />
+
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
