@@ -45,7 +45,7 @@ const Discount = styled.div`
 
 function CabinRow({ cabin }) {
   const queryClient = useQueryClient();
-  const { isLoading, isDeleting, mutate } = useMutation({
+  const { isDeleting, mutate } = useMutation({
     mutationFn: deleteCabin,
     onSuccess: () => {
       queryClient.invalidateQueries({

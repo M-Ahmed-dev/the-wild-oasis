@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { deleteCabin, getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
+import Button from "../../ui/Button";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
