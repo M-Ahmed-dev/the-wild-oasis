@@ -4,6 +4,7 @@ import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import { useCreateCabin } from "./useCreateCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -44,9 +45,15 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
+const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
+
 function CabinRow({ cabin }) {
   const [editRow, setEditRow] = useState(false);
   const { deleteCabin, isDeleting } = useDeleteCabin();
+  const { createCabin, isCreating } = useCreateCabin();
 
   const {
     id: cabinId,
@@ -55,7 +62,19 @@ function CabinRow({ cabin }) {
     regularPrice,
     discount,
     image,
+    description,
   } = cabin;
+
+  function duplicateCabin() {
+    createCabin({
+      name: `Copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      image,
+      description,
+    });
+  }
 
   return (
     <>
@@ -70,17 +89,17 @@ function CabinRow({ cabin }) {
         ) : (
           <span>---</span>
         )}
-        <div>
-          <button>
+        <ButtonsContainer>
+          <button onClick={() => duplicateCabin()}>
             <HiSquare2Stack />
           </button>
           <button disabled={isDeleting} onClick={() => deleteCabin(cabinId)}>
-            <HiPencil />
-          </button>
-          <button onClick={() => setEditRow(!editRow)}>
             <HiTrash />
           </button>
-        </div>
+          <button onClick={() => setEditRow(!editRow)}>
+            <HiPencil />
+          </button>
+        </ButtonsContainer>
       </TableRow>
 
       {editRow && <CreateCabinForm cabinToEdit={cabin} />}
